@@ -16,9 +16,9 @@ LDFLAGS = -m elf_i386 -T src/linker.ld --oformat binary -nostdlib
 
 # Sources
 # Find all .c files in src/kernel
-C_SOURCES = $(wildcard src/kernel/*.c src/drivers/*.c)
+C_SOURCES = $(wildcard src/kernel/*.c src/drivers/*.c src/cpu/*.c)
 # Include headers from src/kernel
-HEADERS = $(wildcard src/kernel/*.h src/drivers/*.h)
+HEADERS = $(wildcard src/kernel/*.h src/drivers/*.h src/cpu/*.h)
 # Create a list of object files (.o) to build from the .c files
 OBJ_FILES = ${C_SOURCES:.c=.o}
 
@@ -40,9 +40,12 @@ ari_os.img: boot.bin kernel.bin
 	dd if=/dev/zero bs=1M count=1 >> ari_os.img
 
 # The Kernel Binary: Links the "Entry" object + all C objects
-# IMPORTANT: kernel_entry.o must be FIRST in the list!
-kernel.bin: src/x86_64/boot/kernel_entry.o ${OBJ_FILES}
+kernel.bin: src/x86_64/boot/kernel_entry.o src/cpu/interrupt.o ${OBJ_FILES}
 	$(LD) $(LDFLAGS) -o $@ $^
+
+# Add interrupt.o to the list
+interrupt.o: src/cpu/interrupt.asm
+	$(ASM) $(ASM_FLAGS) $< -o $@
 
 # The Bootloader (Raw Binary)
 boot.bin: src/x86_64/boot/boot.asm
