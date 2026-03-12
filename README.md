@@ -34,7 +34,7 @@ To compile and emulate AriOs locally, you will need `gcc`, `nasm`, and `qemu` in
 
 **1. Clone the repository:**
 ```bash
-git clone [https://github.com/YourUsername/AriOs.git](https://github.com/YourUsername/AriOs.git)
+git clone [https://github.com/DevilUnderTheHood/AriOs.git](https://github.com/DevilUnderTheHood/AriOs.git)
 cd AriOs
 ```
 
