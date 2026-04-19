@@ -51,6 +51,15 @@ void print_char(char character, int col, int row, char attribute_byte){
     offset = (rows + 1) * (2 * MAX_COLS);
     set_cursor_offset(offset);
   }
+  else if (character == '\b') {
+    // Only backspace if we are not at the very beginning of the screen
+    if (offset >= 2) {
+      offset -= 2;                  // 1. Move back one character
+      vidmem[offset] = ' ';         // 2. Overwrite with a blank space
+      vidmem[offset + 1] = attribute_byte;
+      set_cursor_offset(offset);    // 3. Update the hardware cursor
+    }
+  }
   else {
     vidmem[offset] = character;
     vidmem[offset + 1] = attribute_byte;

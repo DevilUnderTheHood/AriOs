@@ -27,9 +27,4 @@ typedef struct {
 void set_idt_gate(int n, u32 handler);
 void set_idt();
 
-extern void isr0();
-extern void isr1();
-extern void isr32();
-extern void isr33();
-
 #endif

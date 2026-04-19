@@ -15,4 +15,8 @@ void kernel_main() {
 
     print_at("IDT Loaded. Interrupts Enabled.\n", -1, -1);
     print_at("Press any key to test...\n", -1, -1);
+
+    while(1){
+      __asm__ __volatile__("hlt");
+    }
 }

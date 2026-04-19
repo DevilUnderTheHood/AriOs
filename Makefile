@@ -63,4 +63,5 @@ boot.bin: src/x86_64/boot/boot.asm
 
 # --- 5. Cleanup ---
 clean:
-	rm -f *.bin *.img src/kernel/*.o src/x86_64/boot/*.o *.elf
+	rm -f *.bin *.img *.elf *.o
+	rm -f src/kernel/*.o src/x86_64/boot/*.o src/cpu/*.o src/drivers/*.o
